@@ -98,4 +98,15 @@ if res.ok:
                 "att_per_td": att_per_td
             })
 
-print(quarterbacks)
+    starting_qbs = quarterbacks[0:30]
+    qb_points = [player.get("points") for player in starting_qbs]
+    avg_vor = sum(qb_points)/len(qb_points)
+    starting_vor = quarterbacks[20]["points"]
+
+    for quarterback in starting_qbs:
+        quarterback["avg_vor"] = round((quarterback["points"] - avg_vor), 2)
+        quarterback["starting_vor"] = round(
+            (quarterback["points"] - starting_vor), 2)
+
+
+print(starting_qbs)

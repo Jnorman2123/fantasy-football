@@ -10,6 +10,7 @@ autopep8 = "*"
 [packages]
 django = "*"
 requests = "*"
+djangorestframework = "*"
 
 [requires]
 python_version = "3.8"

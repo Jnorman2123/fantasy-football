@@ -79,11 +79,11 @@ if res.ok:
                 "pass_atts": player.get("stats").get(
                     "passing").get("passing_att"),
                 "pass_comps": player.get("stats").get("passing").get("passing_cmp"),
-                "comp%": completion_percentage,
+                "comp_perc": completion_percentage,
                 "pass_yards": player.get("stats").get(
                     "passing").get("passing_yds"),
                 "pass_tds": player.get("stats").get("passing").get("passing_td"),
-                "total_td": total_td,
+                "total_tds": total_td,
                 "games": player.get("games_played"),
                 "points": points,
                 "points_per_game": points_per_game,

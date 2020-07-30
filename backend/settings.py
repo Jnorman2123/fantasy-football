@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'quarterbacks.apps.QuarterbacksConfig'
+    'quarterbacks.apps.QuarterbacksConfig',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,5 @@
-# from django.core.management.base import BaseCommand
-# from quarterbacks.models import Quarterback
+from django.core.management.base import BaseCommand
+from quarterbacks.models import Quarterback
 import requests
 
 res = requests.get(
@@ -108,5 +108,76 @@ if res.ok:
         quarterback["starting_vor"] = round(
             (quarterback["points"] - starting_vor), 2)
 
+""" Clear all data and creates quarterbacks """
+MODE_REFRESH = 'refresh'
 
-print(starting_qbs)
+""" Clear all data and do not create any object """
+MODE_CLEAR = 'clear'
+
+
+class Command(BaseCommand):
+    help = "seed database for testing and development."
+
+    def add_arguments(self, parser):
+        parser.add_argument('--mode', type=str, help="Mode")
+
+    def handle(self, *args, **options):
+        self.stdout.write('seeding data...')
+        run_seed(self, options['mode'])
+        self.stdout.write('done.')
+
+
+def clear_data():
+    """Deletes all the table data"""
+    Quarterback.objects.all().delete()
+
+
+def create_quarterback(quarterback):
+    """Creates an quarterback object combining different elements from the list"""
+
+    quarterback = Quarterback(
+        name=quarterback["name"],
+        team=quarterback["team"],
+        ints=quarterback["ints"],
+        fumbs=quarterback["fumbs"],
+        rush_atts=quarterback["rush_atts"],
+        rush_yards=quarterback["rush_yards"],
+        rush_tds=quarterback["rush_tds"],
+        pass_atts=quarterback["pass_atts"],
+        pass_comps=quarterback["pass_comps"],
+        comp_perc=quarterback["comp_perc"],
+        pass_yards=quarterback["pass_yards"],
+        pass_tds=quarterback["pass_tds"],
+        total_tds=quarterback["total_tds"],
+        games=quarterback["games"],
+        points=quarterback["points"],
+        points_per_game=quarterback["points_per_game"],
+        pass_per_td=quarterback["pass_per_td"],
+        yards_per_pass=quarterback["yards_per_pass"],
+        yards_per_comp=quarterback["yards_per_comp"],
+        rush_per_td=quarterback["rush_per_td"],
+        yards_per_rush=quarterback["yards_per_rush"],
+        total_att=quarterback["total_att"],
+        att_per_game=quarterback["att_per_game"],
+        points_per_att=quarterback["points_per_att"],
+        att_per_td=quarterback["att_per_td"],
+        avg_vor=quarterback["avg_vor"],
+        starting_vor=quarterback["starting_vor"]
+    )
+    quarterback.save()
+    return quarterback
+
+
+def run_seed(self, mode):
+    """ Seed database based on mode
+
+    :param mode: refresh / clear 
+    :return:
+    """
+    # Clear data from tables
+    clear_data()
+    if mode == MODE_CLEAR:
+        return
+
+    for quarterback in starting_qbs:
+        create_quarterback(quarterback)

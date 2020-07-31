@@ -15,26 +15,44 @@ class QuarterbacksContainer extends Component {
     } else {
       return (
         <div>
-          <h2>Name</h2>
-          <ul>
-            {this.props.quarterbacks.quarterbacks.map((quarterback) => {
-              return (
-                <li>
-                  <Quarterback key={quarterback.id} quarterback={quarterback} />
-                </li>
-              );
-            })}
-          </ul>
+          <table class="table-bordered table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Team</th>
+                <th scope="col">Pass Attempts</th>
+                <th scope="col">Pass Completions</th>
+                <th scope="col">Completion Percentage</th>
+                <th scope="col">Pass Yards</th>
+                <th scope="col">Pass Touchdowns</th>
+                <th scope="col">Rush Attempts</th>
+                <th scope="col">Rush Yards</th>
+                <th scope="col">Rush Touchdowns</th>
+                <th scope="col">Total Touchdowns</th>
+                <th scope="col">Interceptions</th>
+                <th scope="col">Fumbles</th>
+                <th scope="col">Games</th>
+                <th scope="col">Points</th>
+                <th scope="col">Points Per Game</th>
+                <th scope="col">Average VOR</th>
+                <th scope="col">Starters VOR</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.quarterbacks.quarterbacks.map((quarterback, i) => {
+                return <Quarterback key={i} quarterback={quarterback} />;
+              })}
+            </tbody>
+          </table>
         </div>
       );
     }
   };
 
   render() {
-    console.log(this.props);
     return (
       <div>
-        <h1>Quarterbacks</h1>
+        <h1 class="d-flex justify-content-center">Quarterbacks</h1>
         <Quarterbacks
           props={this.props}
           renderQuarterbacks={this.renderQuarterbacks}

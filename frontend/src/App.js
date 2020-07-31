@@ -1,14 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
 import "./App.css";
+import { ConnectedRouter } from "connected-react-router";
+import routes from "./routes";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <h1>Hello</h1>
-      </div>
-    );
-  }
+function App({ history }) {
+  return (
+    <ConnectedRouter history={history}>
+      <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+      ></link>
+      {routes}
+    </ConnectedRouter>
+  );
 }
 
 export default App;

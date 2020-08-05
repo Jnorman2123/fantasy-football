@@ -11,10 +11,12 @@ class QuarterbacksContainer extends Component {
 
   createStats = () => {
     if (this.props.quarterbacks.quarterbacks[0] !== undefined) {
-      return Object.keys(this.props.quarterbacks.quarterbacks[0]).map((key) => {
-        const newKey = key.replace(/\_/g, " ");
-        return newKey.charAt(0).toUpperCase() + newKey.slice(1);
-      });
+      return Object.keys(this.props.quarterbacks.quarterbacks[0])
+        .slice(1)
+        .map((key) => {
+          const newKey = key.replace(/\_/g, " ");
+          return newKey.charAt(0).toUpperCase() + newKey.slice(1);
+        });
     }
   };
 
@@ -31,7 +33,24 @@ class QuarterbacksContainer extends Component {
     }
   };
 
+  createTableRows = () => {
+    if (this.props.quarterbacks.quarterbacks[0] !== undefined) {
+      return this.props.quarterbacks.quarterbacks.map((quarterback) => {
+        return (
+          <tr>
+            {Object.entries(quarterback)
+              .slice(1)
+              .map(([key, value]) => {
+                return <td key={key}>{value}</td>;
+              })}
+          </tr>
+        );
+      });
+    }
+  };
+
   renderQuarterbacks = () => {
+    const tableRows = this.createTableRows();
     if (this.props.quarterbacks.requesting === true) {
       return <h1>Loading...</h1>;
     } else {
@@ -41,11 +60,7 @@ class QuarterbacksContainer extends Component {
             <thead>
               <tr>{this.createTableHeads()}</tr>
             </thead>
-            <tbody>
-              {this.props.quarterbacks.quarterbacks.map((quarterback, i) => {
-                return <Quarterback key={i} quarterback={quarterback} />;
-              })}
-            </tbody>
+            <tbody>{tableRows}</tbody>
           </table>
         </div>
       );

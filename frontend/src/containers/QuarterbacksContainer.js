@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchQuarterbacks } from "../actions/quarterbacks/quarterbackActions";
-import Quarterback from "../components/quarterbacks/Quarterback";
 import Quarterbacks from "../components/quarterbacks/Quarterbacks";
 
 class QuarterbacksContainer extends Component {

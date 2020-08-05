@@ -9,34 +9,37 @@ class QuarterbacksContainer extends Component {
     this.props.fetchQuarterbacks();
   }
 
+  createStats = () => {
+    if (this.props.quarterbacks.quarterbacks[0] !== undefined) {
+      return Object.keys(this.props.quarterbacks.quarterbacks[0]).map((key) => {
+        const newKey = key.replace(/\_/g, " ");
+        return newKey.charAt(0).toUpperCase() + newKey.slice(1);
+      });
+    }
+  };
+
+  createTableHeads = () => {
+    const stats = this.createStats();
+    if (stats !== undefined) {
+      return stats.map((stat) => {
+        return (
+          <th key={stat} scope="col">
+            {stat}
+          </th>
+        );
+      });
+    }
+  };
+
   renderQuarterbacks = () => {
     if (this.props.quarterbacks.requesting === true) {
       return <h1>Loading...</h1>;
     } else {
       return (
         <div>
-          <table class="table-bordered table-striped">
+          <table className="table-bordered table-striped">
             <thead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Team</th>
-                <th scope="col">Pass Attempts</th>
-                <th scope="col">Pass Completions</th>
-                <th scope="col">Completion Percentage</th>
-                <th scope="col">Pass Yards</th>
-                <th scope="col">Pass Touchdowns</th>
-                <th scope="col">Rush Attempts</th>
-                <th scope="col">Rush Yards</th>
-                <th scope="col">Rush Touchdowns</th>
-                <th scope="col">Total Touchdowns</th>
-                <th scope="col">Interceptions</th>
-                <th scope="col">Fumbles</th>
-                <th scope="col">Games</th>
-                <th scope="col">Points</th>
-                <th scope="col">Points Per Game</th>
-                <th scope="col">Average VOR</th>
-                <th scope="col">Starters VOR</th>
-              </tr>
+              <tr>{this.createTableHeads()}</tr>
             </thead>
             <tbody>
               {this.props.quarterbacks.quarterbacks.map((quarterback, i) => {
@@ -52,7 +55,7 @@ class QuarterbacksContainer extends Component {
   render() {
     return (
       <div>
-        <h1 class="d-flex justify-content-center">Quarterbacks</h1>
+        <h1 className="d-flex justify-content-center">Quarterbacks</h1>
         <Quarterbacks
           props={this.props}
           renderQuarterbacks={this.renderQuarterbacks}

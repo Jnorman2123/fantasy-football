@@ -31,11 +31,11 @@ class QuarterbackStat extends Component {
   };
 
   render() {
-    return (
-      <button onClick={this.toggle} toggled={this.state.toggled}>
-        {this.props.stat}
-      </button>
-    );
+    if (this.state.toggled === "on") {
+      return <button onClick={this.toggle}>{this.props.stat}</button>;
+    } else {
+      return <></>;
+    }
   }
 }
 

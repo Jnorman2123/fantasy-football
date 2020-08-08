@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchQuarterbacks } from "../actions/quarterbacks/quarterbackActions";
 import Quarterbacks from "../components/quarterbacks/Quarterbacks";
+import QuarterbackStats from "../components/quarterbacks/QuarterbackStats";
+import QuarterbackStat from "../components/quarterbacks/QuarterbackStat";
 
 class QuarterbacksContainer extends Component {
   componentDidMount() {
@@ -19,15 +21,11 @@ class QuarterbacksContainer extends Component {
     }
   };
 
-  createTableHeads = () => {
+  renderStats = () => {
     const stats = this.createStats();
     if (stats !== undefined) {
       return stats.map((stat) => {
-        return (
-          <th key={stat} scope="col">
-            {stat}
-          </th>
-        );
+        return <QuarterbackStat key={stat} stat={stat} />;
       });
     }
   };
@@ -70,10 +68,11 @@ class QuarterbacksContainer extends Component {
     return (
       <div>
         <h1 className="d-flex justify-content-center">Quarterbacks</h1>
-        <Quarterbacks
+        {/* <Quarterbacks
           props={this.props}
           renderQuarterbacks={this.renderQuarterbacks}
-        />
+        /> */}
+        {<QuarterbackStats props={this.props} renderStats={this.renderStats} />}
       </div>
     );
   }

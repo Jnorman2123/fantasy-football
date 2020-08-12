@@ -32,12 +32,18 @@ class Quarterback extends Component {
 
   render() {
     const rows = this.createTableRows();
-    return (
-      <tr>
-        <th scope="col">{this.props.stat}</th>
-        {rows}
-      </tr>
-    );
+    if (this.state.toggled === "on") {
+      return (
+        <tr>
+          <th scope="col" onClick={this.handleToggle}>
+            {this.props.stat}
+          </th>
+          {rows}
+        </tr>
+      );
+    } else {
+      return <></>;
+    }
   }
 }
 

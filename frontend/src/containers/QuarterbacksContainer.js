@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchQuarterbacks } from "../actions/quarterbacks/quarterbackActions";
 import Quarterbacks from "../components/quarterbacks/Quarterbacks";
-import QuarterbackStats from "../components/quarterbacks/QuarterbackStats";
-import QuarterbackStat from "../components/quarterbacks/QuarterbackStat";
+import Quarterback from "../components/quarterbacks/Quarterback";
 
 class QuarterbacksContainer extends Component {
   componentDidMount() {
@@ -21,58 +20,28 @@ class QuarterbacksContainer extends Component {
     }
   };
 
-  renderStats = () => {
+  renderQuarterbacks = () => {
     const stats = this.createStats();
     if (stats !== undefined) {
       return stats.map((stat) => {
-        return <QuarterbackStat key={stat} stat={stat} />;
-      });
-    }
-  };
-
-  createTableRows = () => {
-    if (this.props.quarterbacks.quarterbacks[0] !== undefined) {
-      return this.props.quarterbacks.quarterbacks.map((quarterback) => {
         return (
-          <tr>
-            {Object.entries(quarterback)
-              .slice(1)
-              .map(([key, value]) => {
-                return <td key={key}>{value}</td>;
-              })}
-          </tr>
+          <Quarterback
+            key={stat}
+            stat={stat}
+            quarterbacks={this.props.quarterbacks.quarterbacks}
+          />
         );
       });
-    }
-  };
-
-  renderQuarterbacks = () => {
-    const tableRows = this.createTableRows();
-    if (this.props.quarterbacks.requesting === true) {
-      return <h1>Loading...</h1>;
-    } else {
-      return (
-        <div>
-          <table className="table-bordered table-striped">
-            <thead>
-              <tr>{this.createTableHeads()}</tr>
-            </thead>
-            <tbody>{tableRows}</tbody>
-          </table>
-        </div>
-      );
     }
   };
 
   render() {
     return (
       <div>
-        <h1 className="d-flex justify-content-center">Quarterbacks</h1>
-        {/* <Quarterbacks
-          props={this.props}
+        <Quarterbacks
           renderQuarterbacks={this.renderQuarterbacks}
-        /> */}
-        {<QuarterbackStats props={this.props} renderStats={this.renderStats} />}
+          quarterbacks={this.props.quarterbacks.quarterbacks}
+        />
       </div>
     );
   }

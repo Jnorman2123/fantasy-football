@@ -7,12 +7,14 @@ class Quarterback extends Component {
       .map(([key, value]) => {
         const newKey = key.replace(/\_/g, " ");
         const stat = newKey.charAt(0).toUpperCase() + newKey.slice(1);
-        const statTd = document.getElementById("Name");
-        return <td key={stat}>{value}</td>;
+        if (this.props.stats[stat] === "on") {
+          return <td key={stat}>{value}</td>;
+        }
       });
   };
 
   render() {
+    console.log(this.props.stats["Name"]);
     const rows = this.createQuarterbacks();
     return <tr>{rows}</tr>;
   }

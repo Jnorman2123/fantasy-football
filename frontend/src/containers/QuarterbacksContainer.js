@@ -4,7 +4,7 @@ import { fetchQuarterbacks } from "../actions/quarterbacks/quarterbackActions";
 import QuarterbackTable from "../components/quarterbacks/QuarterbackTable";
 import Quarterback from "../components/quarterbacks/Quarterback";
 import Stat from "../components/quarterbacks/Stat";
-// import CheckBoxes from "../components/quarterbacks/CheckBoxes";
+import CheckBoxes from "../components/quarterbacks/CheckBoxes";
 
 const state = {
   Name: "on",
@@ -66,7 +66,7 @@ class QuarterbacksContainer extends Component {
     const qbs = this.props.quarterbacks.quarterbacks;
     if (qbs !== undefined) {
       return qbs.map((qb) => {
-        return <Quarterback key={qb.name} qb={qb} />;
+        return <Quarterback key={qb.name} qb={qb} stats={this.state} />;
       });
     }
   };
@@ -96,11 +96,16 @@ class QuarterbacksContainer extends Component {
     console.log(this.state);
     return (
       <div>
-        <QuarterbackTable
-          renderQuarterbacks={this.renderQuarterbacks}
-          renderStats={this.renderStats}
-          quarterbacks={this.props.quarterbacks.quarterbacks}
-        />
+        <div>
+          <CheckBoxes />
+        </div>
+        <div>
+          <QuarterbackTable
+            renderQuarterbacks={this.renderQuarterbacks}
+            renderStats={this.renderStats}
+            quarterbacks={this.props.quarterbacks.quarterbacks}
+          />
+        </div>
       </div>
     );
   }

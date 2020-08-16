@@ -8,9 +8,19 @@ class Stat extends Component {
     };
   }
 
+  handleToggle = () => {
+    this.state.toggled === "on"
+      ? this.setState({ toggled: "off" })
+      : this.setState({ toggled: "on" });
+  };
+
   render() {
     return (
-      <td id={this.props.stat} toggled={this.state.toggled}>
+      <td
+        onClick={this.handleToggle}
+        id={this.props.stat}
+        toggled={this.state.toggled}
+      >
         {this.props.stat}
       </td>
     );

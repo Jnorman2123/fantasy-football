@@ -5,7 +5,9 @@ class Quarterback extends Component {
     return Object.entries(this.props.qb)
       .slice(1)
       .map(([key, value]) => {
-        return <td key={key}>{value}</td>;
+        const newKey = key.replace(/\_/g, " ");
+        const stat = newKey.charAt(0).toUpperCase() + newKey.slice(1);
+        return <td key={stat}>{value}</td>;
       });
   };
 

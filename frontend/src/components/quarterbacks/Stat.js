@@ -1,29 +1,16 @@
 import React, { Component } from "react";
 
 class Stat extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      toggled: "on",
-    };
-  }
-
-  handleToggle = () => {
-    this.state.toggled === "on"
-      ? this.setState({ toggled: "off" })
-      : this.setState({ toggled: "on" });
-  };
-
   render() {
-    return (
-      <td
-        onClick={this.handleToggle}
-        id={this.props.stat}
-        toggled={this.state.toggled}
-      >
-        {this.props.stat}
-      </td>
-    );
+    if (this.props.toggled === "on") {
+      return (
+        <td onClick={this.props.handleToggle} toggled={this.props.toggled}>
+          {this.props.stat}
+        </td>
+      );
+    } else {
+      return <></>;
+    }
   }
 }
 

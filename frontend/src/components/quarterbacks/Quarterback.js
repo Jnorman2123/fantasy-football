@@ -7,6 +7,7 @@ class Quarterback extends Component {
       .map(([key, value]) => {
         const newKey = key.replace(/\_/g, " ");
         const stat = newKey.charAt(0).toUpperCase() + newKey.slice(1);
+        const statTd = document.getElementById("Name");
         return <td key={stat}>{value}</td>;
       });
   };

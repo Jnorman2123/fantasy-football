@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class QuarterbackTable extends Component {
   render() {
     return (
-      <table className="table table-bordered">
+      <table className="table table-bordered table-sm">
         <thead>
           <tr>{this.props.renderStats()}</tr>
         </thead>

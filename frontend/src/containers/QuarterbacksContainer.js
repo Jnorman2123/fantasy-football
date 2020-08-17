@@ -93,17 +93,16 @@ class QuarterbacksContainer extends Component {
   };
 
   render() {
-    console.log(this.state);
+    const stats = this.createStats();
     return (
       <div>
         <div>
-          <CheckBoxes />
+          <CheckBoxes stats={stats} />
         </div>
         <div>
           <QuarterbackTable
             renderQuarterbacks={this.renderQuarterbacks}
             renderStats={this.renderStats}
-            quarterbacks={this.props.quarterbacks.quarterbacks}
           />
         </div>
       </div>

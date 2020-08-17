@@ -14,7 +14,6 @@ class Quarterback extends Component {
   };
 
   render() {
-    console.log(this.props.stats["Name"]);
     const rows = this.createQuarterbacks();
     return <tr>{rows}</tr>;
   }

@@ -4,15 +4,7 @@ import { ConnectedRouter } from "connected-react-router";
 import routes from "./routes";
 
 function App({ history }) {
-  return (
-    <ConnectedRouter history={history}>
-      <link
-        rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-      ></link>
-      {routes}
-    </ConnectedRouter>
-  );
+  return <ConnectedRouter history={history}>{routes}</ConnectedRouter>;
 }
 
 export default App;

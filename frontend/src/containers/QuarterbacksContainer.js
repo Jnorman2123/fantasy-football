@@ -4,7 +4,7 @@ import { fetchQuarterbacks } from "../actions/quarterbacks/quarterbackActions";
 import QuarterbackTable from "../components/quarterbacks/QuarterbackTable";
 import Quarterback from "../components/quarterbacks/Quarterback";
 import Stat from "../components/quarterbacks/Stat";
-import CheckBoxes from "../components/quarterbacks/CheckBoxes";
+import CheckboxContainer from "./CheckboxContainer";
 
 const state = {
   Name: "on",
@@ -57,9 +57,10 @@ class QuarterbacksContainer extends Component {
   };
 
   handleToggle = (event) => {
-    this.state[event.target.innerText] === "on"
-      ? this.setState({ [event.target.innerText]: "off" })
-      : this.setState({ [event.target.innerText]: "on" });
+    console.log(event.target.name);
+    this.state[event.target.name] === "on"
+      ? this.setState({ [event.target.name]: "off" })
+      : this.setState({ [event.target.name]: "on" });
   };
 
   renderQuarterbacks = () => {
@@ -77,15 +78,7 @@ class QuarterbacksContainer extends Component {
       return (
         <>
           {stats.map((stat) => {
-            const toggled = this.state[stat];
-            return (
-              <Stat
-                handleToggle={this.handleToggle}
-                key={stat}
-                stat={stat}
-                toggled={toggled}
-              />
-            );
+            return <Stat key={stat} stat={stat} toggled={this.state[stat]} />;
           })}
         </>
       );
@@ -94,10 +87,15 @@ class QuarterbacksContainer extends Component {
 
   render() {
     const stats = this.createStats();
+    let toggled = this.state;
     return (
       <div>
         <div>
-          <CheckBoxes stats={stats} />
+          <CheckboxContainer
+            toggled={toggled}
+            stats={stats}
+            handleToggle={this.handleToggle}
+          />
         </div>
         <div>
           <QuarterbackTable

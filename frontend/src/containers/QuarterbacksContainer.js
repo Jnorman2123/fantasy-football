@@ -49,14 +49,9 @@ class QuarterbacksContainer extends Component {
   }
 
   createStats = () => {
-    if (this.props.quarterbacks.quarterbacks[0] !== undefined) {
-      return Object.keys(this.props.quarterbacks.quarterbacks[0])
-        .slice(1)
-        .map((key) => {
-          const newKey = key.replace(/\_/g, " ");
-          return newKey.charAt(0).toUpperCase() + newKey.slice(1);
-        });
-    }
+    return Object.keys(this.state.stats).map((key) => {
+      return key;
+    });
   };
 
   handleToggle = (event) => {
@@ -73,8 +68,11 @@ class QuarterbacksContainer extends Component {
   };
 
   handleSort = (event) => {
-    const message = `sort by ${event.target.innerText}`;
-    console.log(message);
+    event.persist();
+    this.setState((prevState) => ({
+      ...prevState,
+      sort: [event.target.innerText],
+    }));
   };
 
   renderQuarterbacks = () => {

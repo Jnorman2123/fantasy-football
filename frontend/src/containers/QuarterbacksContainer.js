@@ -77,7 +77,18 @@ class QuarterbacksContainer extends Component {
 
   renderQuarterbacks = () => {
     const qbs = this.props.quarterbacks.quarterbacks;
-    if (qbs !== undefined) {
+    const sorting = this.state.sort;
+    if (sorting !== "") {
+      const newSort = sorting[0].replace(/\ /g, "_");
+      const lowerSort = newSort.charAt(0).toLowerCase() + newSort.slice(1);
+      console.log(lowerSort);
+      if (qbs !== undefined) {
+        qbs.sort((a, b) => (a[lowerSort] > b[lowerSort] ? -1 : 1));
+        return qbs.map((qb) => {
+          return <Quarterback key={qb.name} qb={qb} stats={this.state.stats} />;
+        });
+      }
+    } else {
       return qbs.map((qb) => {
         return <Quarterback key={qb.name} qb={qb} stats={this.state.stats} />;
       });

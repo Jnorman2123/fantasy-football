@@ -7,32 +7,35 @@ import Stat from "../components/quarterbacks/Stat";
 import CheckboxContainer from "./CheckboxContainer";
 
 const state = {
-  Name: "on",
-  Team: "on",
-  Ints: "on",
-  Fumbs: "on",
-  "Rush atts": "on",
-  "Rush yards": "on",
-  "Rush tds": "on",
-  "Pass atts": "on",
-  "Pass comps": "on",
-  "Comp perc": "on",
-  "Pass yards": "on",
-  "Pass tds": "on",
-  Games: "on",
-  Points: "on",
-  "Points per game": "on",
-  "Pass per td": "on",
-  "Yards per pass": "on",
-  "Yards per comp": "on",
-  "Rush per td": "on",
-  "Yards per rush": "on",
-  "Total att": "on",
-  "Att per game": "on",
-  "Points per att": "on",
-  "Att per td": "on",
-  "Avg vor": "on",
-  "Starting vor": "on",
+  stats: {
+    Name: "on",
+    Team: "on",
+    Ints: "on",
+    Fumbs: "on",
+    "Rush atts": "on",
+    "Rush yards": "on",
+    "Rush tds": "on",
+    "Pass atts": "on",
+    "Pass comps": "on",
+    "Comp perc": "on",
+    "Pass yards": "on",
+    "Pass tds": "on",
+    Games: "on",
+    Points: "on",
+    "Points per game": "on",
+    "Pass per td": "on",
+    "Yards per pass": "on",
+    "Yards per comp": "on",
+    "Rush per td": "on",
+    "Yards per rush": "on",
+    "Total att": "on",
+    "Att per game": "on",
+    "Points per att": "on",
+    "Att per td": "on",
+    "Avg vor": "on",
+    "Starting vor": "on",
+  },
+  sort: "",
 };
 
 class QuarterbacksContainer extends Component {
@@ -57,17 +60,28 @@ class QuarterbacksContainer extends Component {
   };
 
   handleToggle = (event) => {
-    console.log(event.target.name);
-    this.state[event.target.name] === "on"
-      ? this.setState({ [event.target.name]: "off" })
-      : this.setState({ [event.target.name]: "on" });
+    event.persist();
+    this.state.stats[event.target.name] === "on"
+      ? this.setState((prevState) => ({
+          ...prevState,
+          stats: { ...prevState.stats, [event.target.name]: "off" },
+        }))
+      : this.setState((prevState) => ({
+          ...prevState,
+          stats: { ...prevState.stats, [event.target.name]: "on" },
+        }));
+  };
+
+  handleSort = (event) => {
+    const message = `sort by ${event.target.innerText}`;
+    console.log(message);
   };
 
   renderQuarterbacks = () => {
     const qbs = this.props.quarterbacks.quarterbacks;
     if (qbs !== undefined) {
       return qbs.map((qb) => {
-        return <Quarterback key={qb.name} qb={qb} stats={this.state} />;
+        return <Quarterback key={qb.name} qb={qb} stats={this.state.stats} />;
       });
     }
   };
@@ -78,7 +92,14 @@ class QuarterbacksContainer extends Component {
       return (
         <>
           {stats.map((stat) => {
-            return <Stat key={stat} stat={stat} toggled={this.state[stat]} />;
+            return (
+              <Stat
+                key={stat}
+                stat={stat}
+                toggled={this.state.stats[stat]}
+                handleSort={this.handleSort}
+              />
+            );
           })}
         </>
       );
@@ -86,6 +107,7 @@ class QuarterbacksContainer extends Component {
   };
 
   render() {
+    console.log(this.state);
     const stats = this.createStats();
     let toggled = this.state;
     return (
